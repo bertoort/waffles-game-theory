@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Waffle</title>
+  <link href="/style/paper.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.css">
+  <link rel="stylesheet" type="text/css" href="/style/app.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" >Waffle - Game Theory</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#" data-toggle="modal" data-target="#instructions" >How to play</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/bertoort/waffles-game-theory">Repo</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main id="game" class="row">
+    <div class="status col-sm-6">
+      <div v-if="gameState.started" id="statusMessage">
+        <h4>{{winnerMessage}}</h4>
+        <h4>{{gameState.statusMessage}}</h4>
+        <img class="animated bounceInDown"src="http://img1.wikia.nocookie.net/__cb20091130175110/swtoroff-topic/images/6/65/High_quality_waffle.png" alt="waffle" />
+        <game-container>
+          <div class="row">
+            <span v-if="opponentReady && !playerReady"> Waiting on you... </span>
+            <span v-if="!opponentReady && playerReady"> Waiting for your friend... </span>
+            <div v-if="!playerReady">
+              <div class="col-sm-10">
+                <div class="radio">
+                  <label>
+                    <input type="radio" v-model="choice" name="playerOne" id="take" value="take" checked="">
+                    Take
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" v-model="choice" name="playerOne" id="split" value="split">
+                    Split
+                  </label>
+                </div>
+                <input type="button" @click="submit()" class="btn btn-default" value="submit">
+              </div>
+            </div>
+          </div>
+        </game-container>
+        <div v-if="gameState.over" class="row">
+          <div class="col-sm-6">
+            <div class="form-group player-box">
+              <label class="col-sm-12 control-label">You chose</label>
+              {{playerChoice}}
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group player-box">
+              <label class="col-sm-12 control-label">Your friend chose</label>
+              {{opponentChoice}}
+            </div>
+          </div>
+          <button @click="reset()" type="button" class="btn btn-default">Restart</button>
+        </div>
+      </div>
+      <div class="animated" v-if="!gameState.started">
+        <h4>{{gameState.statusMessage}}</h4>
+        <!-- spinner: Copyright / Credit (MIT License): https://github.com/tobiasahlin/SpinKit/-->
+        <div class="spinner">
+          <div class="cube1"></div>
+          <div class="cube2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="jumbotron conversation col-sm-6">
+    <div class="messages">
+      <p v-for="message in gameState.messages"> {{message}}</p>
+    </div>
+    <input type="text" @keyup.enter="message" v-model="text" name="text" autocomplete="off" placeholder="enter message here">
+  </div>
+</main>
+<div class="modal fade" id="instructions">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Instructions</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Your mom was so nice to make waffles for you and your friend. Unfortunately, there's only one left.
+          Do you decide to split it or take it? if you both decide to split, then you share the waffle. However,
+          if you both decide to take, your mom will throw it in the trash for not wanting to share.
+          The kicker: if you take and your friend splits, you take the whole waffle! but careful,
+          if your friend takes while you want to split, he takes it all. Good luck!
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.0.js" type= "text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.14/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="/app.js" type= "text/javascript"></script>
+</body>
+</html>
