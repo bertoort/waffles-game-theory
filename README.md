@@ -9,9 +9,6 @@ if you both decide to take, your mom will throw it in the trash for not wanting 
 The kicker: if you take and your friend splits, you take the whole waffle! but careful,
 if your friend takes while you want to split, he takes it all. Good luck!
 
-### deploy
-[heroku](https://waffles-game-theory.herokuapp.com)
-
 ### install
 * `go get https://github.com/bertoort/game-theory`
 * checkout development
