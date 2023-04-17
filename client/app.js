@@ -1,5 +1,5 @@
 // creating the websocket connection
-var socket = new WebSocket("wss://https://waffle-game-theory.onrender.com/ws");
+var socket = new WebSocket("wss://waffle-game-theory.onrender.com/ws");
 
 // creating a unique id for player to know and send
 var id = Date.now();
